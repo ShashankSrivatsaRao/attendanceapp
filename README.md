@@ -53,7 +53,7 @@ This project is an **Attendance Management System** built using **PHP**, **MySQL
   sudo cp -r /path/to/your/project/* /var/www/html/attendanceapp/
   ```
 
-7.**Now navigate to the **/var/www/html/attendanceapp file to see if all files have been copied.
+7.**Now navigate to the**/var/www/html/attendanceapp file to see if all files have been copied.
   **Set Correct file peermissions**
   ```bash
   sudo chown -R www-data:www-data /var/www/html/attendanceapp
@@ -117,6 +117,30 @@ This project is an **Attendance Management System** built using **PHP**, **MySQL
          }
          ?>
       ```
+
+9.**Now run the following php command to create tables in the databse**
+  ```bash
+  php createtables.php
+  ```
+ ***If you encounter any error it is beacase you have not provided the correct path to your database.php folder or have not entered the credentials correctly into the databse.php folder*** 
+
+10.Message saying all tables created is displayed.Now verify the tables are created by logging into the sql shell and checking the databse for tables using simple select query.
+ ```bash
+ sudo mysql -u root -p
+ password:********
+ mysql>use database attendance;
+ mysql>show tables;
+ mysql>select * from faculty_details;
+ ```
+
+11.Now Open the IP address of the EC2 instance in the browser and add <public-IPV4-address>/attendanceapp/login.php
+
+12.Enter the login credentials username:rcb and password:123
+
+# Use the project by changing all the tables in createtables as per your requirements and use it
+
+Youtube I referred to :https://www.youtube.com/playlist?list=PLJ4-ETiGBrdOZ4kvbzNGidD26M24BLImM 
+ 
 
    
 
