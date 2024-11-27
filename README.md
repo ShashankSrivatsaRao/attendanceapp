@@ -76,7 +76,7 @@ This project is an **Attendance Management System** built using **PHP**, **MySQL
    }
    ?>
   ```
-  ***PLEASE NOTE THE ABOVE CODE IS NOT PRESENT IN MY DATABSE.PHP FILE INSIDE DATABSE FOLDER.IN THAT CODE JUST CHANGE THE CREDENTIALS OF THE DATABASE AND IT WILL WORK***
+  ***PLEASE NOTE THE ABOVE CODE IS NOT PRESENT IN MY DATABSE.PHP FILE INSIDE DATABASE FOLDER.IN THAT CODE JUST CHANGE THE CREDENTIALS OF THE DATABASE AND IT WILL WORK***
 
   **_9.MOST IMPORTANT STEP_** Now navigate into the attendanceapp/database/createtables.php folder and change the require once path to the path where the databse.php file is stored.This can be done by changing only the 4th line og the code like this .
    ```bash
