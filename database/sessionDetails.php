@@ -1,6 +1,5 @@
 <?php
-$path=$_SERVER['DOCUMENT_ROOT'];
-require_once $path."/attendanceapp/database/database.php";
+require_once(__DIR__ . '/database.php');
 class SessionDetails
 {
     public function getSessions($dbo)

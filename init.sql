@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS attendance;
+GRANT ALL PRIVILEGES ON attendance.* TO 'attendanceuser'@'%';
+FLUSH PRIVILEGES;
