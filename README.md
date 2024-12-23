@@ -2,6 +2,14 @@
 
 This project is an **Attendance Management System** built using **PHP**, **MySQL**, and **Apache** on an EC2 instance. It allows users to manage student attendance, track roll numbers, and save them in a database. The system consists of a backend that interacts with MySQL, providing a seamless experience for managing attendance data.
 
+<img width="430" alt="Screenshot 2024-12-23 124613" src="https://github.com/user-attachments/assets/bad47a28-8e39-40dd-bf22-29ef2babf747" />
+<img width="430" alt="Screenshot 2024-12-23 124625" src="https://github.com/user-attachments/assets/21213f76-731b-48c1-8900-7c9ce8b32303" />
+<img width="430" alt="Screenshot 2024-12-23 124634" src="https://github.com/user-attachments/assets/59bdbf4d-bf65-4fef-8bc1-91da2628ed5b" />
+<img width="430" alt="Screenshot 2024-12-23 124648" src="https://github.com/user-attachments/assets/86c625e4-1ef4-4cc4-97e9-607416b2b245" />
+<img width="430" alt="Screenshot 2024-12-23 124710" src="https://github.com/user-attachments/assets/b5b566fc-9c6f-45d0-9357-2e815f685a42" />
+<img width="430" alt="{7F03D54A-FCD6-487B-807D-FAD35D24BC66}" src="https://github.com/user-attachments/assets/8f1bf2cd-3424-40e9-b3fd-c85ee749c519" />
+
+
 ### Features:
 - Create and manage student details.
 - Record and track student attendance.
@@ -140,9 +148,110 @@ This project is an **Attendance Management System** built using **PHP**, **MySQL
 # Modify the tables in createtables to suit your needs and use the project accordingly.
 
 Youtube I referred to :https://www.youtube.com/playlist?list=PLJ4-ETiGBrdOZ4kvbzNGidD26M24BLImM 
- 
 
+# Dockerizing this application using Docker 
+**To run this application, you must have Docker Desktop or Docker Engine installed on your system** 
+```
+git clone https://github.com/ShashankSrivatsaRao/attendanceapp
+cd attendanceapp
+docker compose up --build
+```
+Now go to http://localhost and see the application use username:rcb and password :123 
+ 
+After everything run docker compose down 
+
+# PROCESS 
+1. Analyze all the system dependencies , libraries ,files required to create a container image.
+2. Write a Dockerfile to create a base image of the web server and install all the system dependencies.
    
+   ```
+   FROM php:8.2-apache
+
+      # Install system dependencies
+      RUN apt-get update && apt-get install -y \
+          libpng-dev \
+          libjpeg-dev \
+          libonig-dev \
+          libxml2-dev \
+          zip \
+          curl \
+          unzip
+      
+      # Install PHP extensions
+      RUN docker-php-ext-install mysqli pdo pdo_mysql mbstring exif pcntl bcmath gd
+      
+      # Enable Apache modules
+      RUN a2enmod rewrite
+      
+      # Configure Apache
+      RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+      RUN sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/attendanceapp/g' /etc/apache2/sites-available/000-default.conf
+      
+      # Set working directory
+      WORKDIR /var/www/html/attendanceapp
+      
+      # Copy application files
+      COPY . .
+      
+      # Set permissions
+      RUN chown -R www-data:www-data /var/www/html \
+          && chmod -R 755 /var/www/html
+      
+      # Configure PHP
+      RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+   ```
+3. Now that you have a docker file write a docker-compose.yml file to create 2 services web and db
+   ```
+    version: '3.8'
+         
+         services:
+           web:
+             build:
+               context: .
+               dockerfile: Dockerfile
+             ports:
+               - "80:80"
+             volumes:
+               - .:/var/www/html/attendanceapp
+             depends_on:
+               - db
+             networks:
+               - attendance-network
+         
+           db:
+             image: mysql:8.0
+             command: --default-authentication-plugin=mysql_native_password
+             restart: always
+             ports:
+               - "3307:3306"
+             environment:
+               - MYSQL_DATABASE=attendance
+               - MYSQL_USER=attendanceuser
+               - MYSQL_PASSWORD=Saswe@123
+               - MYSQL_ROOT_PASSWORD=root
+             volumes:
+               - mysql_data:/var/lib/mysql
+             networks:
+               - attendance-network
+         
+         networks:
+           attendance-network:
+             driver: bridge
+         
+         volumes:
+           mysql_data:
+    ```
+4.Now add a init.sql file to initialize the database and grant the user permissions.
+     ```
+     CREATE DATABASE IF NOT EXISTS attendance;
+     GRANT ALL PRIVILEGES ON attendance.* TO 'attendanceuser'@'%';
+     FLUSH PRIVILEGES;
+     ```
+5.Now Run ```docker compose up --build ```
+
+
+     
+            
 
  
 
