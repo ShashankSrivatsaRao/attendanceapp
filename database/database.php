@@ -1,7 +1,7 @@
 <?php
 class Database
 {
-    private $servername = "localhost";
+    private $servername = "db";
     private $username = "attendanceuser";
     private $password = "Saswe@123";
     private $dbname = "attendance";
@@ -19,3 +19,4 @@ class Database
     }
 }
 ?>
+
