@@ -242,11 +242,14 @@ After everything run docker compose down
            mysql_data:
     ```
 4.Now add a init.sql file to initialize the database and grant the user permissions.
-     ```
+
+  ```
      CREATE DATABASE IF NOT EXISTS attendance;
      GRANT ALL PRIVILEGES ON attendance.* TO 'attendanceuser'@'%';
      FLUSH PRIVILEGES;
-     ```
+  ```
+
+
 5.Now Run ```docker compose up --build ```
 
 
