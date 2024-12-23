@@ -137,7 +137,7 @@ This project is an **Attendance Management System** built using **PHP**, **MySQL
 
 12.Enter the login credentials username:rcb and password:123
 
-# Use the project by changing all the tables in createtables as per your requirements and use it
+# Modify the tables in createtables to suit your needs and use the project accordingly.
 
 Youtube I referred to :https://www.youtube.com/playlist?list=PLJ4-ETiGBrdOZ4kvbzNGidD26M24BLImM 
  
