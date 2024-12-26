@@ -252,9 +252,63 @@ After everything run docker compose down
 
 5.Now Run ```docker compose up --build ```
 
+# CHALLENGES FACED DURING DEPLOYING
+
+WHEN I GOT TO http://localhost/   I SEE THIS SCREEN 
+ 
+  <img width="430" alt="{9C2E992C-F40D-42A1-AF45-4061D2219019}" src="https://github.com/user-attachments/assets/3d83ef87-323a-4a21-8437-edc23b00a60e" />
+
+  **THIS IS BEACAUSE WE HAVE NOT MENTIONED THE DIRECTORY INDEX IN THE WEB SERVER CONFIG FILE**
+
+  **ALSO WE HAVE NOT CREATED THE TABLES INSIDE THE DB CONTAINER OF THE DATABASE**
+
+## TROUBLESHOOTING
+
+1. Open a new terminal and *cd into the project folder* . Inside this folder see the running containers.
+RUN CoMMAND                  
+```
+docker compose exec db mysql -u attendanceuser -pSaswe@123 -e "SHOW DATABASES;"     
+```
+to show databases in the db container.
+
+Output is this:
+<img width="430" alt="Screenshot 2024-12-26 150506" src="https://github.com/user-attachments/assets/74034359-e89f-46c6-91e3-3aa5b9fd4488" />
+
+If not check the command properly.
+
+2. Go into the web container by
+   
+```docker compose exec web bash```
+
+Go and execute the createtables.php file in apache2 var/www/html folder
+
+<img width="430" alt="Screenshot 2024-12-26 150811" src="https://github.com/user-attachments/assets/7cf52d79-f86c-4285-96ae-bc0aa448a9ff" />
+
+3. Now do not exit like I did. We have to add the directory index as login.php to the config file using the command inside the web container.
+
+```
+ vim /etc/apache2/sites-available/000-default.conf
+```
+
+IF vim is not there ``` apt install vim ```
+
+Inside the config file below the DocumentRoot add the ```DirectoryIndex login.php``` line.
+
+Save it and exit.
+
+4.Restart the web service using
+
+```
+docker compose web restart
+```
+
+<img width="340" alt="Screenshot 2024-12-26 151138" src="https://github.com/user-attachments/assets/15516c64-9dfd-47f1-86c4-d1f7f14b0650" />
+
+NOW VISIT http://localhost/ 
+
+
 
      
-            
 
  
 
