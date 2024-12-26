@@ -299,7 +299,7 @@ Save it and exit.
 4.Restart the web service using
 
 ```
-docker compose web restart
+docker compose restart web
 ```
 
 <img width="340" alt="Screenshot 2024-12-26 151138" src="https://github.com/user-attachments/assets/15516c64-9dfd-47f1-86c4-d1f7f14b0650" />
